@@ -24,19 +24,8 @@
                 let playerScore = 0;
                 let finalWinner = "";
                 for (let i=0; i < 5; i++) {
-                    let input, roundWinner;
-                    let isInputValid = false;
-                    let promptMessage = "Rock, paper, or scissors?"
-                    while (!isInputValid) {
-                        input = prompt( promptMessage ).toLowerCase();
-                        if (input == "rock" || input == "paper" || input == "scissors") {
-                            isInputValid = true;
-                        }
-                        else {
-                            promptMessage = "That input was not valid.\n\nRock, paper, or scissors?";
-                        }
-                    }
-                    roundWinner = playRound( input, chooseComputerSelection() );
+                    let input = getInput();
+                    let roundWinner = playRound(input, chooseComputerSelection());
                     switch (roundWinner) {
                         case 0:
                             computerScore++;
@@ -54,6 +43,20 @@
                 console.log("Final scores:");
                 console.log(`Player: ${playerScore}`);
                 console.log(`Computer: ${computerScore}`);
+            }
+            function getInput() {
+                let inputValid = false;
+                let promptMessage = "Rock, paper, or scissors?"
+                while (!inputValid) {
+                    input = prompt( promptMessage ).toLowerCase();
+                    if (input == "rock" || input == "paper" || input == "scissors") {
+                        inputValid = true;
+                    }
+                    else {
+                        promptMessage = "That input was not valid.\n\nRock, paper, or scissors?";
+                    }
+                }
+                return input;
             }
             function playRound(playerSelection, computerSelection) {
                 let msg = `Computer chose ${computerSelection}.\n\n`;
