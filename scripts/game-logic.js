@@ -36,20 +36,6 @@ function game() {
     console.log(`Player: ${playerScore}`);
     console.log(`Computer: ${computerScore}`);
 }
-function getInput() {
-    let inputValid = false;
-    let promptMessage = "Rock, paper, or scissors?"
-    while (!inputValid) {
-        input = prompt( promptMessage ).toLowerCase();
-        if (input == "rock" || input == "paper" || input == "scissors") {
-            inputValid = true;
-        }
-        else {
-            promptMessage = "That input was not valid.\n\nRock, paper, or scissors?";
-        }
-    }
-    return input;
-}
 function incrementComputerScore() {
     let computerScoreContainer = document.querySelector("#computer-score");
     let score = +computerScoreContainer.textContent;
