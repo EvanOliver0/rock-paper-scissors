@@ -50,33 +50,45 @@ function getInput() {
     }
     return input;
 }
+function incrementComputerScore() {
+    let computerScoreContainer = document.querySelector("#computer-score");
+    let score = +computerScoreContainer.textContent;
+    score++;
+    computerScoreContainer.textContent = score;
+}
+function incrementPlayerScore() {
+    let playerScoreContainer = document.querySelector("#player-score");
+    let score = +playerScoreContainer.textContent;
+    score++;
+    playerScoreContainer.textContent = score;
+}
 function playRound(e) {
     let playerSelection = e.target.name;
     let computerSelection = chooseComputerSelection();
-    let msg = `Computer chose ${computerSelection}.\n\n`;
-    let winner = -1;
-    // winner: 0 represents player loss; 1 represents player victory; 2 represents a draw; 
-    // anything else represents an error.
+    let message = `Computer chose ${computerSelection}.\n\n`;
     if (playerSelection == computerSelection) {
-        msg += "It's a draw!";
-        winner = 2;
+        message += "It's a draw!";
     }
     else if ( (playerSelection == "rock" && computerSelection == "paper") ||
                 (playerSelection == "paper" && computerSelection == "scissors") ||
                 (playerSelection == "scissors" && computerSelection == "rock") ) {
-            msg += (`${computerSelection} beats ${playerSelection}. You lose!`);
-            winner = 0;
+            message += (`${computerSelection} beats ${playerSelection}. You lose!`);
+            incrementComputerScore();
     }
     else if ( (playerSelection == "rock" && computerSelection == "scissors") ||
                 (playerSelection == "paper" && computerSelection == "rock") ||
                 (playerSelection == "scissors" && computerSelection == "paper") ) {
-            msg += (`${playerSelection} beats ${computerSelection}. You win!`);
-            winner = 1;
+            message += (`${playerSelection} beats ${computerSelection}. You win!`);
+            incrementPlayerScore();
     }
     else {
-        msg += "Something went wrong!";
+        message += "Something went wrong!";
     }
-    alert(msg);
+    updateMessage(message);
+}
+function updateMessage(message) {
+    let messageContainer = document.querySelector("#message");
+    messageContainer.textContent = message;
 }
 let buttons = document.querySelectorAll("button");
 buttons.forEach( (button) => {
