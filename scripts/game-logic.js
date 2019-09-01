@@ -50,7 +50,9 @@ function getInput() {
     }
     return input;
 }
-function playRound(playerSelection, computerSelection) {
+function playRound(e) {
+    let playerSelection = e.target.name;
+    let computerSelection = chooseComputerSelection();
     let msg = `Computer chose ${computerSelection}.\n\n`;
     let winner = -1;
     // winner: 0 represents player loss; 1 represents player victory; 2 represents a draw; 
@@ -75,6 +77,8 @@ function playRound(playerSelection, computerSelection) {
         msg += "Something went wrong!";
     }
     alert(msg);
-    return winner;
 }
-game();
+let buttons = document.querySelectorAll("button");
+buttons.forEach( (button) => {
+    button.addEventListener("click", playRound)
+});
