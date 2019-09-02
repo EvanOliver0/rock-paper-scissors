@@ -1,3 +1,8 @@
+function capitalize(text) {
+    let firstLetter = text.slice(0, 1);
+    let remainder = text.slice(1);
+    return (firstLetter.toUpperCase() + remainder);
+}
 function chooseComputerSelection() {
     let choiceNum = Math.floor( Math.random()*3 );
     switch (choiceNum) {
@@ -29,31 +34,6 @@ function determineWinner(playerSelection, computerSelection) {
     }
     return winner;
 }
-function game() {
-    let computerScore = 0;
-    let playerScore = 0;
-    let finalWinner = "";
-    for (let i=0; i < 5; i++) {
-        let input = getInput();
-        let roundWinner = playRound(input, chooseComputerSelection());
-        switch (roundWinner) {
-            case 0:
-                computerScore++;
-                break;
-            case 1:
-                playerScore++;
-                break;
-            default:
-                break;
-        }
-    }
-    finalWinner = (playerScore > computerScore) ? "Player" : 
-                    ( (playerScore < computerScore) ? "Computer" : "Draw" );
-    alert(`Winner: ${finalWinner}! See console log for score details.`)
-    console.log("Final scores:");
-    console.log(`Player: ${playerScore}`);
-    console.log(`Computer: ${computerScore}`);
-}
 function incrementComputerScore() {
     let computerScoreContainer = document.querySelector("#computer-score");
     let score = +computerScoreContainer.textContent;
@@ -69,15 +49,15 @@ function incrementPlayerScore() {
 function playRound(e) {
     let playerSelection = e.target.name;
     let computerSelection = chooseComputerSelection(); 
-    let message = `Computer chose ${computerSelection}.\n\n`;
+    let message = `Computer chose ${computerSelection}. `;
     let winner = determineWinner(playerSelection, computerSelection);
     switch (winner) {
         case 'p':
-            message += `${playerSelection} beats ${computerSelection}. You win!`;
+            message += `${capitalize(playerSelection)} beats ${computerSelection}. You win!`;
             incrementPlayerScore();
             break;
         case 'c':
-            message += `${computerSelection} beats ${playerSelection}. You lose!`;
+            message += `${capitalize(computerSelection)} beats ${playerSelection}. You lose!`;
             incrementComputerScore();
             break;
         case 'd':
