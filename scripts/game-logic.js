@@ -34,17 +34,14 @@ function determineWinner(playerSelection, computerSelection) {
     }
     return winner;
 }
-function incrementComputerScore() {
+function getComputerScore() {
     let computerScoreContainer = document.querySelector("#computer-score");
-    let score = +computerScoreContainer.textContent;
-    score++;
-    computerScoreContainer.textContent = score;
+    return +computerScoreContainer.textContent;
 }
-function incrementPlayerScore() {
+
+function getPlayerScore() {
     let playerScoreContainer = document.querySelector("#player-score");
-    let score = +playerScoreContainer.textContent;
-    score++;
-    playerScoreContainer.textContent = score;
+    return +playerScoreContainer.textContent;
 }
 function playRound(e) {
     let playerSelection = e.target.name;
@@ -54,11 +51,11 @@ function playRound(e) {
     switch (winner) {
         case 'p':
             message += `${capitalize(playerSelection)} beats ${computerSelection}. You win!`;
-            incrementPlayerScore();
+            setPlayerScore(getPlayerScore() + 1);
             break;
         case 'c':
             message += `${capitalize(computerSelection)} beats ${playerSelection}. You lose!`;
-            incrementComputerScore();
+            setComputerScore(getComputerScore() + 1);
             break;
         case 'd':
             message += "It's a draw!";
@@ -69,6 +66,24 @@ function playRound(e) {
             console.log(`Computer selection: ${computerSelection}`);
     }
     updateMessage(message);
+    if (getComputerScore() >= 5) {
+        alert("Computer wins!")
+        setComputerScore(0);
+        setPlayerScore(0);
+    }
+    else if (getPlayerScore() >= 5) {
+        alert("You win!")
+        setComputerScore(0);
+        setPlayerScore(0);
+    }
+}
+function setComputerScore(score) {
+    let computerScoreContainer = document.querySelector("#computer-score");
+    computerScoreContainer.textContent = score;
+}
+function setPlayerScore(score) {
+    let playerScoreContainer = document.querySelector("#player-score");
+    playerScoreContainer.textContent = score;
 }
 function updateMessage(message) {
     let messageContainer = document.querySelector("#message");
