@@ -11,6 +11,24 @@ function chooseComputerSelection() {
             return ("Error! Generated number = " + choiceNum);
     }
 }
+function determineWinner(playerSelection, computerSelection) {
+    let winner = "";
+    if (playerSelection == computerSelection) {
+        message += "It's a draw!";
+        winner = 'd';
+    }
+    else if ( (playerSelection == "rock" && computerSelection == "paper") ||
+                (playerSelection == "paper" && computerSelection == "scissors") ||
+                (playerSelection == "scissors" && computerSelection == "rock") ) {
+            winner = 'c';
+    }
+    else if ( (playerSelection == "rock" && computerSelection == "scissors") ||
+                (playerSelection == "paper" && computerSelection == "rock") ||
+                (playerSelection == "scissors" && computerSelection == "paper") ) {
+            winner = 'p';
+    }
+    return winner;
+}
 function game() {
     let computerScore = 0;
     let playerScore = 0;
@@ -50,25 +68,25 @@ function incrementPlayerScore() {
 }
 function playRound(e) {
     let playerSelection = e.target.name;
-    let computerSelection = chooseComputerSelection();
+    let computerSelection = chooseComputerSelection(); 
     let message = `Computer chose ${computerSelection}.\n\n`;
-    if (playerSelection == computerSelection) {
-        message += "It's a draw!";
-    }
-    else if ( (playerSelection == "rock" && computerSelection == "paper") ||
-                (playerSelection == "paper" && computerSelection == "scissors") ||
-                (playerSelection == "scissors" && computerSelection == "rock") ) {
-            message += (`${computerSelection} beats ${playerSelection}. You lose!`);
-            incrementComputerScore();
-    }
-    else if ( (playerSelection == "rock" && computerSelection == "scissors") ||
-                (playerSelection == "paper" && computerSelection == "rock") ||
-                (playerSelection == "scissors" && computerSelection == "paper") ) {
-            message += (`${playerSelection} beats ${computerSelection}. You win!`);
+    let winner = determineWinner(playerSelection, computerSelection);
+    switch (winner) {
+        case 'p':
+            message += `${playerSelection} beats ${computerSelection}. You win!`;
             incrementPlayerScore();
-    }
-    else {
-        message += "Something went wrong!";
+            break;
+        case 'c':
+            message += `${computerSelection} beats ${playerSelection}. You lose!`;
+            incrementComputerScore();
+            break;
+        case 'd':
+            message += "It's a draw!";
+            break;
+        default:
+            message += "Something went wrong!";
+            console.log(`Player selection: ${playerSelection}`);
+            console.log(`Computer selection: ${computerSelection}`);
     }
     updateMessage(message);
 }
