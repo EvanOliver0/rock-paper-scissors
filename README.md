@@ -1,1 +1,1 @@
-A simple game of rock, paper, scissors, played in the browser console. From The Odin Project.
+A simple, ugly game of rock, paper, scissors. From The Odin Project.
